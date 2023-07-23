@@ -56,9 +56,9 @@ class Ball {
 
   bounce(striker) {
     if (this.y + this.radius >= striker.y &&
-        this.y + this.radius <= striker.y + striker.height &&
-        this.x >= striker.x &&
-        this.x <= striker.x + striker.width) {
+      this.y + this.radius <= striker.y + striker.height &&
+      this.x >= striker.x &&
+      this.x <= striker.x + striker.width) {
       this.speedY *= -1;
     }
 
@@ -79,7 +79,7 @@ class Ball {
     const brickX = brick.x + brick.width / 2;
     const brickY = brick.y + brick.height / 2;
     return abs(centerX - brickX) < halfWidth + brick.width / 2 &&
-           abs(centerY - brickY) < halfHeight + brick.height / 2;
+      abs(centerY - brickY) < halfHeight + brick.height / 2;
   }
 
   reverseY() {
@@ -111,7 +111,7 @@ function createBricks() {
   const brickWidth = 60;
   const brickHeight = 20;
   const brickMargin = 10;
-  
+
   for (let r = 0; r < brickRowCount; r++) {
     for (let c = 0; c < brickColumnCount; c++) {
       const x = c * (brickWidth + brickMargin) + brickMargin;
@@ -123,36 +123,33 @@ function createBricks() {
 
 function draw() {
   background(0);
-  
-  // Draw bricks
+
+
   for (let brick of bricks) {
     brick.show();
   }
-  
-  // Draw striker
+
+
   striker.show();
-  
-  // Draw ball
+
+
   ball.show();
-  
-  // Display lives and score below the striker
+
+
   textSize(20);
   fill(255);
   text(`Lives: ${lives}`, 10, height - 20);
   text(`Score: ${score}`, width - 100, height - 20);
-  
-  // Move the striker
+
   if (keyIsDown(LEFT_ARROW)) {
     striker.move(-5);
   } else if (keyIsDown(RIGHT_ARROW)) {
     striker.move(5);
   }
-  
-  // Move and bounce the ball
+
   ball.move();
   ball.bounce(striker);
-  
-  // Check for collisions with bricks
+
   for (let i = bricks.length - 1; i >= 0; i--) {
     if (ball.hits(bricks[i])) {
       bricks.splice(i, 1);
@@ -161,8 +158,8 @@ function draw() {
       break;
     }
   }
-  
-  // Game over condition
+
+
   if (ball.y + ball.radius > height) {
     lives--;
     if (lives === 0) {
@@ -172,7 +169,7 @@ function draw() {
       striker.reset();
     }
   }
-  // You win condition
+
   if (bricks.length === 0) {
     youWin();
   }
